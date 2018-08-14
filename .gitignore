@@ -1,0 +1,25 @@
+# OS X
+.DS_Store*
+Icon?
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+.directory
+*~
+
+# WebStorm
+.idea
+
+# build
+dist
+
+# npm
+node_modules
+
+# Development testing
+__DEV
