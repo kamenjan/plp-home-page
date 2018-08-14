@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 
+import Mobile from "./containers/Mobile.js";
+import Desktop from "./containers/Desktop";
+
 export default class Main extends Component {
 
 	constructor() {
@@ -30,10 +33,9 @@ export default class Main extends Component {
 	}
 
 	render() {
+
 		return (
-			<div id={"app-container"}>
-				hey man, this is it, get to work :)
-			</div>
-		);
+			<div>{(this.state.width <= 768) ? ( <Mobile /> ) : ( <Desktop /> )}</div>
+		)
 	}
 }
