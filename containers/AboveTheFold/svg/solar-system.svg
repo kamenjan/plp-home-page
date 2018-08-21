@@ -1,0 +1,73 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1611.5 911.5">
+  <defs>
+    <radialGradient id="Summer" cx="-8.5" cy="-67.5" r="540.3" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0.09" stop-color="#ffedd8"/>
+      <stop offset="0.21" stop-color="#ffd5a7"/>
+      <stop offset="0.33" stop-color="#ffc17d"/>
+      <stop offset="0.46" stop-color="#ffb05b"/>
+      <stop offset="0.59" stop-color="#ffa340"/>
+      <stop offset="0.72" stop-color="#ff9a2d"/>
+      <stop offset="0.86" stop-color="#ff9522"/>
+      <stop offset="1" stop-color="#ff931e"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient" cx="412" cy="163" r="261.73" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0.09" stop-color="#eafdff"/>
+      <stop offset="0.26" stop-color="#c8f9ff"/>
+      <stop offset="0.44" stop-color="#adf7ff"/>
+      <stop offset="0.62" stop-color="#9af5ff"/>
+      <stop offset="0.8" stop-color="#8ff3ff"/>
+      <stop offset="1" stop-color="#8bf3ff"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-2" cx="728" cy="335" r="168.4" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0.02" stop-color="#f4fdfb"/>
+      <stop offset="0.14" stop-color="#bcf3e9"/>
+      <stop offset="0.25" stop-color="#8ae9d8"/>
+      <stop offset="0.37" stop-color="#5fe2ca"/>
+      <stop offset="0.49" stop-color="#3ddbbe"/>
+      <stop offset="0.61" stop-color="#22d6b5"/>
+      <stop offset="0.74" stop-color="#0fd3af"/>
+      <stop offset="0.87" stop-color="#04d1ab"/>
+      <stop offset="1" stop-color="#00d0aa"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-3" cx="874" cy="429" r="350.77" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0.1" stop-color="#ffe0d2"/>
+      <stop offset="0.22" stop-color="#ffbea1"/>
+      <stop offset="0.34" stop-color="#ffa176"/>
+      <stop offset="0.47" stop-color="#ff8954"/>
+      <stop offset="0.6" stop-color="#ff7739"/>
+      <stop offset="0.73" stop-color="#ff6926"/>
+      <stop offset="0.86" stop-color="#ff621b"/>
+      <stop offset="1" stop-color="#ff5f17"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-4" cx="1158" cy="623" r="172.8" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0.06" stop-color="#fff2f3"/>
+      <stop offset="0.24" stop-color="#ffd0d6"/>
+      <stop offset="0.42" stop-color="#ffb5bf"/>
+      <stop offset="0.61" stop-color="#ffa2ae"/>
+      <stop offset="0.8" stop-color="#ff97a4"/>
+      <stop offset="1" stop-color="#ff93a1"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-5" cx="1454" cy="715" r="220.78" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0.08" stop-color="#e5e5ff"/>
+      <stop offset="0.23" stop-color="#bbbcff"/>
+      <stop offset="0.37" stop-color="#999aff"/>
+      <stop offset="0.52" stop-color="#7e80ff"/>
+      <stop offset="0.68" stop-color="#6b6dff"/>
+      <stop offset="0.83" stop-color="#6062ff"/>
+      <stop offset="1" stop-color="#5c5eff"/>
+    </radialGradient>
+  </defs>
+  <title>16082018sunorbit_inlinestyle</title>
+  <circle data-id="sun" cx="154" cy="154" r="154" style="fill: url(#Summer)"/>
+  <circle data-id="venus" cx="512.5" cy="332.5" r="42" style="fill: url(#radial-gradient)"/>
+  <circle data-id="earth" cx="775.5" cy="458.5" r="54" style="fill: url(#radial-gradient-2)"/>
+  <circle data-id="saturn" cx="1016.5" cy="578.5" r="69" style="fill: url(#radial-gradient-3)"/>
+  <circle data-id="jupiter" cx="1262.5" cy="702.5" r="69" style="fill: url(#radial-gradient-4)"/>
+  <circle data-id="pluto" cx="1556.5" cy="856.5" r="55" style="fill: url(#radial-gradient-5)"/>
+</svg>

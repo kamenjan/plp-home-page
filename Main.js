@@ -14,18 +14,11 @@ export default class Main extends Component {
 	}
 
 	componentDidMount() {
-		window.addEventListener("scroll", this.updateOnScroll);
 		window.addEventListener('resize', this.updateOnResize);
 	}
 
 	componentWillUnmount() {
-		window.removeEventListener("scroll", this.updateOnScroll);
 		window.removeEventListener('resize', this.updateOnResize);
-	}
-
-	updateOnScroll = () => {
-		const documentElement = document.scrollingElement || document.documentElement;
-		this.setState({ fromTop: documentElement.scrollTop });
 	}
 
 	updateOnResize = () => {
@@ -33,9 +26,8 @@ export default class Main extends Component {
 	}
 
 	render() {
-
 		return (
-			<div>{(this.state.width <= 768) ? ( <Mobile /> ) : ( <Desktop /> )}</div>
+			<div>{ this.state.width <= 768 ? <Mobile /> : <Desktop /> }</div>
 		)
 	}
 }

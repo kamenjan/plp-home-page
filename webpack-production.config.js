@@ -29,7 +29,9 @@ baseConfig.module.rules.push(sassLoader);
 
 baseConfig.plugins.push(
 	new webpack.DefinePlugin({
-		ENV: JSON.stringify("production")
+		// https://facebook.github.io/react/docs/optimizing-performance.html#webpack && https://webpack.js.org/plugins/define-plugin/
+		ENV: JSON.stringify("production"),
+		'process.env.NODE_ENV': JSON.stringify("production")
 	})
 );
 
