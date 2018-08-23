@@ -6,12 +6,9 @@ export default class AboutUs extends Component {
 		super(props);
 	}
 
-	/* Triggered when component loads */
-	componentDidMount() {}
-
-	componentWillUnmount() {}
-
-	componentWillUpdate () {}
+	componentDidMount() {
+		console.log(`AboutUs mounted`);
+	}
 
 	render() {
 		return (

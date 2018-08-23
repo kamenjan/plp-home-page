@@ -13,6 +13,10 @@ export default class AboveTheFold extends Component {
 		this.solarSystemSvgRef = React.createRef();
 	}
 
+	componentWillReceiveProps() {
+		// console.log(this.props);
+	}
+
 	componentDidMount() {
 		const getSvgById = id => this.solarSystemSvgRef.current.querySelector(id);
 		const domToElementsObject = attribute => domElement => domElement.querySelectorAll(attribute);

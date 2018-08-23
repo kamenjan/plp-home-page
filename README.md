@@ -21,13 +21,16 @@ SOLUTION: think about using a fake scroll bar or imitation of movement in the ma
 ##### 2. [desktop layout] Animating transitions between different scenes
 
 ISSUE: I have to find a way to optimize transition between site sections. I was thinking about using react router and transition-groups. Router might be an overkill. But it does make sense to use new lifecycle methods made available by react transitions to handle sections transition animation. Take a deeper dive in react-transition-groups
-SOLUTION: 
-
+SOLUTION: I implemented router v4 and react transition groups. They work like charm. A few issues remain open though (create separate issues): 
+1. breaking production build into main component (scenes) based files for purposes of synchronous loading (lazy-loading) and general optimizations 
+2. I am using BrowserRouter so user can navigate between routes using url to enable linking to specific sections of the site. This is reacts internal (frontend) navigation. I have to configure server somehow. Research!
+ 
 Sources:
 - https://reactcommunity.org/react-transition-group/
 - https://github.com/reactjs/react-transition-group
+- https://github.com/reactjs/react-transition-group/issues/136 (ongoing discussion on router and transition group integration)
+- https://medium.com/@khwsc1/step-by-step-guide-of-simple-routing-transition-effect-for-react-with-react-router-v4-and-9152db1566a0
 - https://hackernoon.com/animated-page-transitions-with-react-router-4-reacttransitiongroup-and-animated-1ca17bd97a1a
-- https://github.com/reactjs/react-transition-group/issues/136
 - https://codesandbox.io/s/mQy3mMznn
 - https://medium.com/@agm1984/how-to-manage-page-transition-animations-in-react-ba09c66655c6
 
