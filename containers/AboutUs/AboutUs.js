@@ -7,12 +7,12 @@ export default class AboutUs extends Component {
 	}
 
 	componentDidMount() {
-		console.log(`AboutUs mounted`);
+		// console.log(`AboutUs mounted`);
 	}
 
 	render() {
 		return (
-			<div id={"about-us"}>
+			<div id={"about-us"} className={`section`}>
 				about us
 			</div>
 		);

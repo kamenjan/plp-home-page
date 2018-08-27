@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import "./containers/global.scss";
+
 import Mobile from "./containers/Mobile.js";
 import Desktop from "./containers/Desktop";
 

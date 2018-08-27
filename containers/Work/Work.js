@@ -15,7 +15,7 @@ export default class Work extends Component {
 
 	render() {
 		return (
-			<div id={"work"}>
+			<div id={"work"} className={`section`}>
 				work
 			</div>
 		);

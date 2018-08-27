@@ -66,38 +66,40 @@ export default class Desktop extends Component {
 	render() {
 		return (
 			<BrowserRouter>
-				<div>
-					<section>
-						<nav>
-							<ul>
-								<li><Link to="/">Home</Link></li>
-								<li><Link to="/about-us">About Us</Link></li>
-								<li><Link to="/work">Work</Link></li>
-							</ul>
-						</nav>
-						<hr />
+				<div id={`desktop-wrapper`}>
+					<section id={`nav-menu`}>
+						<span><Link to="/">Home</Link></span>
+						<span><Link to="/about-us">About Us</Link></span>
+						<span><Link to="/work">Work</Link></span>
+						<span
+							onClick={() => {
+								setTimeout(() => {
+									this.props.history.push(`/menu`);
+								}, 700)
+							}}
+						>TEST LINK</span>
 					</section>
 					<Route path="/" render={(props) => (
 						<TransitionGroup>
 							<Transition
 								// For transitions API to work, transition key has to be set and unique!
 								key={props.location.key}
-								mountOnEnter={true}
-								unmountOnExit={true}
+								mountOnEnter={false}
+								unmountOnExit={false}
 								timeout={1000}
-								// onEnter={el => { console.log('enter', el) }} // I have state available in my transition components ...
+								// onEntering={el => { console.log('entering', el) }} // I have state available in my transition components ...
 								// onExit={el => { console.log('exit', el) }} // ... so do I really need these? Leave for reference
 							>
 								{ state =>
 									<Switch location={props.location}>
 										<Route exact path="/" render={(props) => (
-											<AboveTheFold {...props} transition-state={state}/>
+											<AboveTheFold {... props} transitionState={state}/>
 										)}/>
 										<Route exact path="/about-us" render={(props) => (
-											<AboutUs {...props} transition-state={state}/>
+											<AboutUs {... props} transitionState={state}/>
 										)}/>
 										<Route exact path="/work" render={(props) => (
-											<Work {...props} transition-state={state}/>
+											<Work {... props} transitionState={state}/>
 										)}/>
 									</Switch>
 								}
