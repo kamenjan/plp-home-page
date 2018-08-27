@@ -69,5 +69,5 @@
   <circle data-id="earth" class="planet" cx="775.5" cy="458.5" r="54" style="fill: url(#radial-gradient-2)"/>
   <circle data-id="saturn" class="planet" cx="1016.5" cy="578.5" r="69" style="fill: url(#radial-gradient-3)"/>
   <circle data-id="jupiter" class="planet" cx="1262.5" cy="702.5" r="69" style="fill: url(#radial-gradient-4)"/>
-  <circle data-id="pluto" class="planet" cx="1556.5" cy="856.5" r="55" style="fill: url(#radial-gradient-5)"/>
+  <circle data-id="pluto" class="planet last" cx="1556.5" cy="856.5" r="55" style="fill: url(#radial-gradient-5)"/>
 </svg>

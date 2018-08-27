@@ -12,20 +12,20 @@ export default class AboveTheFold extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			transitionState: this.props.transitionState,
-			elementsAnimationSteps: {
-				sun: { scale: { initial: 0, in: 1, out: 0 }},
-				planets: {
-					venus: { rotate: { initial: -90, in: 90, end: 90 }},
-					earth: { rotate: { initial: -90, in: 90, end: 90 }},
-					saturn: { rotate: { initial: -90, in: 90, end: 90 }},
-					jupiter: { rotate: { initial: -90, in: 90, end: 90 }},
-					pluto: { rotate: { initial: -90, in: 90, end: 90 }}
-				}
-			}
+			transitionState: this.props.transitionState
 		}
 		this.solarSystemSvgRef = React.createRef()
 
+		this.elementsAnimationSteps = {
+			sun: { scale: { initial: 0, in: 1, out: 0 }},
+			planets: {
+				venus:   { rotate: { initial: -90, in: 0, end:  90 }},
+				earth:   { rotate: { initial:  90, in: 0, end: -90 }},
+				saturn:  { rotate: { initial: -90, in: 0, end:  90 }},
+				jupiter: { rotate: { initial:  90, in: 0, end: -90 }},
+				pluto:   { rotate: { initial: -90, in: 0, end:  90 }}
+			}
+		}
 		this.svgAnimationElements = {}
 	}
 
@@ -40,20 +40,25 @@ export default class AboveTheFold extends Component {
 
 	/* Helper functions for animating SVGs */
 	/* TODO: Trying to go functional, revision and refactoring is inevitable */
-	getElementAbsoluteCenter = (el) => { /* Calculate elements center relative to viewport */
-		const rect = el.getBoundingClientRect()
-		return {x: Math.round(rect.left + rect.width / 2), y: Math.round(rect.top + rect.height / 2)}
-	}
+	extractRectFromDOMElement = el => el.getBoundingClientRect()
+	roundCoordinates = ({x, y}) => ({ x: Math.round(x), y: Math.round(y) })
+	rectRelativeCenterCoordinates = rect => ({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2})
+	// one way of going functional (also see functions above):
+	elementsCenterCoordinates = compose(this.extractRectFromDOMElement, this.rectRelativeCenterCoordinates, this.roundCoordinates)
+	// other way to go functional (less overhead?):
+	elementsTopLeftCoordinates = compose(
+		el => el.getBoundingClientRect(),
+		rect => ({x: rect.left, y: rect.top}),
+		({x, y}) => ({ x: Math.round(x), y: Math.round(y) })
+	);
 
-
+	/* By checking newly received props we can determine if component is about to exit */
 	componentWillReceiveProps(nextProps) {
+		/* I only need to track toggle between (something and entering) and (something and exiting) to trigger enter or exit animation */
 		if (nextProps.transitionState === `entering` || nextProps.transitionState === `exiting`) {
-			/* I only need to track toggle between (something and entering) and (something and exiting) to trigger enter or exit animation  */
-			this.setState({transitionState: nextProps.transitionState})
 			// setState is async function. If I wish to do something based on the changed state I have to use callback. Example:
 			// this.setState({transitionState: this.props.transitionState}, () => {})
-			// TODO: ... then call the appropriate function (animateEnter() || animateExit()).
-			// NOTE: I think only exit is really viable since animateEnter is triggered on component mount
+			this.setState({transitionState: nextProps.transitionState})
 			if (nextProps.transitionState === `exiting`) this.animateExit(this.svgAnimationElements)
 		}
 	}
@@ -78,20 +83,31 @@ export default class AboveTheFold extends Component {
 	}
 
 	initializeAnimationElements = ({sun, planets}) => {
-		const solarCenter = this.getElementAbsoluteCenter(sun);
 		TweenLite.set(sun, {scale: 0, transformOrigin:"center center"})
-		planets.map((planet, index, array) => {
-			const planetCoordinates = {x: Math.round(planet.getBoundingClientRect().left), y: planet.getBoundingClientRect().top}
+
+		const solarCenter = this.elementsCenterCoordinates(sun)
+		planets.map((planet) => {
+			const planetAnimationData = this.elementsAnimationSteps.planets[planet.dataset.id]
+			const planetCoordinates = { x: Math.round(planet.getBoundingClientRect().left), y: planet.getBoundingClientRect().top }
+			// TESTING:
+			// const planetCoordinatesTest = compose(this.extractRectFromDOMElement, rect => ({x: rect.left, y: rect.right}), this.roundCoordinates)(planet);
+			const planetCoordinatesTest = this.elementsTopLeftCoordinates(planet)
+			// console.log(planetCoordinatesTest);
 			TweenLite.set(planet, {
+				/* TODO: Ask David if he can change the transformOrigin property in InkScape */
 				transformOrigin:`-${planetCoordinates.x - solarCenter.x}px -${planetCoordinates.y - solarCenter.y}px`,
-				rotation: -90
+				rotation: planetAnimationData.rotate.initial
 			})
 		})
 	}
 
 	animateEnter = ({sun, planets}) => {
+		/* NOTE: Sections fadeouts and fadeins are asynchronous. Stagger enter animation if need be */
 		planets.map((planet) => {
-			TweenLite.to(planet, 1, {rotation: 0})
+			const planetAnimationData = this.elementsAnimationSteps.planets[planet.dataset.id]
+			TweenLite.to(planet, 1, {
+				rotation: planetAnimationData.rotate.in
+			})
 		})
 		TweenLite.to(sun, 1, {scale: 1, transformOrigin:"center center"})
 
@@ -103,9 +119,12 @@ export default class AboveTheFold extends Component {
 
 	animateExit = ({sun, planets}) => {
 		planets.map((planet) => {
-			TweenLite.to(planet, 1, {rotation: 90})
+			const planetAnimationData = this.elementsAnimationSteps.planets[planet.dataset.id]
+			TweenLite.to(planet, 1, {
+				rotation: planetAnimationData.rotate.end
+			})
 		})
-		TweenLite.to(sun, 1, {scale: 0, transformOrigin:"center center"})
+		TweenLite.to(sun, 0.7, {scale: 0, transformOrigin:"center center"})
 	};
 
 	render() {
