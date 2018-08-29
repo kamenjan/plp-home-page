@@ -32,8 +32,15 @@ let cssLoader = {
 	}]
 };
 
+let eslintLoader = {
+	test: /\.js$/,
+	exclude: /node_modules/,
+	use: ['babel-loader', 'eslint-loader']
+};
+
 baseConfig.module.rules.push(cssLoader);
 baseConfig.module.rules.push(sassLoader);
+baseConfig.module.rules.push(eslintLoader);
 
 baseConfig.plugins.push(
 	new webpack.DefinePlugin({
