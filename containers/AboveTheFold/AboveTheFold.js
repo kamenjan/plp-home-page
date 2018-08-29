@@ -70,33 +70,13 @@ export default class AboveTheFold extends Component {
 			this.objectToArray
 		)("#solar-system")
 
+		/* TODO: I disabled SVGOs removeIDs functionality. Refactor this so it ueses plain ids. */
 		const sun = this.findItemById('sun')(svgItems)
 		const planets = this.objectToArray(this.getSvgById(`#solar-system`).getElementsByClassName(`planet`))
 
-		// const solarSystemSvg = this.solarSystemSvgRef.current.querySelector(id)
-		// const sun = this.findItemById('sun')(svgItems)
-		// const planets = this.objectToArray(this.getSvgById(`#solar-system`).getElementsByClassName(`planet`))
-
-
 		/* Define components animations elements and make them available anytime anywhere inside the component */
 		this.svgAnimationElements = {sun, planets}
-
-		// this.initializeAnimationElements(this.svgAnimationElements)
 		this.animateEnter(this.svgAnimationElements)
-	}
-
-	initializeAnimationElements = ({sun, planets}) => {
-		// TweenLite.set(sun, {
-		// 	transformOrigin:"center center"
-		// })
-		// const solarCenter = this.elementsCenterCoordinates(sun)
-		// planets.map((planet) => {
-		// 	const planetAnimationData = this.elementsAnimationSteps.planets[planet.dataset.id]
-		// 	const planetCoordinates = this.elementsTopLeftCoordinates(planet)
-		// 	TweenLite.set(planet, {
-		// 		transformOrigin:`-${planetCoordinates.x - solarCenter.x}px -${planetCoordinates.y - solarCenter.y}px`
-		// 	})
-		// })
 	}
 
 	animateEnter = ({sun, planets}) => {

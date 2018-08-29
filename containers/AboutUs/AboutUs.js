@@ -60,11 +60,6 @@ export default class AboutUs extends Component {
 		const L = svg.getElementById(`L`)
 		const P2 = svg.getElementById(`P2`)
 		const cubes = this.objectToArray(svg.getElementsByClassName(`cube`))
-
-		console.log(cubes);
-
-		// this.objectToArray(svg.getElementsByClassName(`cube`))
-
 		this.svgAnimationElements = {P1, L, P2, cubes}
 		this.animateEnter(this.svgAnimationElements)
 	}
@@ -74,7 +69,6 @@ export default class AboutUs extends Component {
 		animation.add(`start`, `+=${this.props.transitionTimeout}`);
 		[P1, L, P2].map((letter, index) => {
 			const letterAnimationData = this.elementsAnimationSteps[letter.id].initial
-			console.log(letterAnimationData);
 			animation.from(letter, 1, { ... letterAnimationData}, `start+=${index/5}`)
 		})
 	}
