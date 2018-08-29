@@ -33,3 +33,7 @@ export default class Main extends Component {
 		)
 	}
 }
+
+Main.propTypes = {
+    // name: PropTypes.string
+};

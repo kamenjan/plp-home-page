@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-
+import PropTypes from 'prop-types';
 import { TimelineLite, TweenLite } from 'gsap';
 import _ from 'lodash';
-
 import { compose } from "../../services/functional"
 import PlpCubes from "./svg/plp-inkscape.svg";
+import Main from "../../Main";
 
 export default class AboutUs extends Component {
 
@@ -90,3 +90,8 @@ export default class AboutUs extends Component {
 		);
 	}
 }
+
+AboutUs.propTypes = {
+    transitionState: PropTypes.string,
+    transitionTimeout: PropTypes.number
+};

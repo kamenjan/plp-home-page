@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-
+import PropTypes from 'prop-types';
 import { TimelineLite, TweenLite } from 'gsap';
 import _ from 'lodash';
-
 import { compose } from "../../services/functional"
-
 import SolarSystem from "./svg/solar-system.svg";
 
 export default class AboveTheFold extends Component {
@@ -129,3 +127,8 @@ export default class AboveTheFold extends Component {
 		)
 	}
 }
+
+AboveTheFold.propTypes = {
+    transitionState: PropTypes.string,
+    transitionTimeout: PropTypes.number
+};
