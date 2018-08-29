@@ -41,10 +41,8 @@ export default class Desktop extends Component {
 	// and animate the transition using react transition
 	updateOnScroll = (event) => {
 		if (Math.abs(event.deltaY) > 30) {
-
 			// Remove listener to lock the transition so the animation can load
 			window.removeEventListener("wheel", this.updateOnScroll);
-
 			// Check and set users scroll direction
 			const direction = (event.deltaY)/Math.abs(event.deltaY);
 
@@ -86,20 +84,20 @@ export default class Desktop extends Component {
 								key={props.location.key}
 								mountOnEnter={false}
 								unmountOnExit={false}
-								timeout={1000}
+								timeout={2000}
 								// onEntering={el => { console.log('entering', el) }} // I have state available in my transition components ...
 								// onExit={el => { console.log('exit', el) }} // ... so do I really need these? Leave for reference
 							>
 								{ state =>
 									<Switch location={props.location}>
 										<Route exact path="/" render={(props) => (
-											<AboveTheFold {... props} transitionState={state}/>
+											<AboveTheFold {... props} transitionState={state} transitionTimeout={1.2}/>
 										)}/>
 										<Route exact path="/about-us" render={(props) => (
-											<AboutUs {... props} transitionState={state}/>
+											<AboutUs {... props} transitionState={state} transitionTimeout={1.2}/>
 										)}/>
 										<Route exact path="/work" render={(props) => (
-											<Work {... props} transitionState={state}/>
+											<Work {... props} transitionState={state} transitionTimeout={0.2}/>
 										)}/>
 									</Switch>
 								}

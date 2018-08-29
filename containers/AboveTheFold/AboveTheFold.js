@@ -15,15 +15,14 @@ export default class AboveTheFold extends Component {
 			transitionState: this.props.transitionState
 		}
 		this.solarSystemSvgRef = React.createRef()
-
 		this.elementsAnimationSteps = {
 			sun: { scale: { initial: 0, in: 1, out: 0 }},
 			planets: {
-				venus:   { rotate: { initial: -90, in: 0, end:  90 }},
-				earth:   { rotate: { initial:  90, in: 0, end: -90 }},
-				saturn:  { rotate: { initial: -90, in: 0, end:  90 }},
-				jupiter: { rotate: { initial:  90, in: 0, end: -90 }},
-				pluto:   { rotate: { initial: -90, in: 0, end:  90 }}
+				venus:   { rotate: { initial: -90,  in: 0,  end:  90 }},
+				earth:   { rotate: { initial:  50,  in: 0,  end: -50 }},
+				saturn:  { rotate: { initial: -40,  in: 0,  end:  40 }},
+				jupiter: { rotate: { initial:  30,  in: 0,  end: -30 }},
+				pluto:   { rotate: { initial: -20,  in: 0,  end:  20 }}
 			}
 		}
 		this.svgAnimationElements = {}
@@ -45,7 +44,7 @@ export default class AboveTheFold extends Component {
 	rectRelativeCenterCoordinates = rect => ({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2})
 	// one way of going functional (also see functions above):
 	elementsCenterCoordinates = compose(this.extractRectFromDOMElement, this.rectRelativeCenterCoordinates, this.roundCoordinates)
-	// other way to go functional (less overhead?):
+	// other way to go functional (less overhead, but also less DRY):
 	elementsTopLeftCoordinates = compose(
 		el => el.getBoundingClientRect(),
 		rect => ({x: rect.left, y: rect.top}),
@@ -64,7 +63,6 @@ export default class AboveTheFold extends Component {
 	}
 
 	componentDidMount() {
-
 		/* Create array of components svg internal elements based on their data-id */
 		const svgItems = compose(
 			this.getSvgById,
@@ -75,63 +73,79 @@ export default class AboveTheFold extends Component {
 		const sun = this.findItemById('sun')(svgItems)
 		const planets = this.objectToArray(this.getSvgById(`#solar-system`).getElementsByClassName(`planet`))
 
+		// const solarSystemSvg = this.solarSystemSvgRef.current.querySelector(id)
+		// const sun = this.findItemById('sun')(svgItems)
+		// const planets = this.objectToArray(this.getSvgById(`#solar-system`).getElementsByClassName(`planet`))
+
+
 		/* Define components animations elements and make them available anytime anywhere inside the component */
 		this.svgAnimationElements = {sun, planets}
 
-		this.initializeAnimationElements(this.svgAnimationElements)
+		// this.initializeAnimationElements(this.svgAnimationElements)
 		this.animateEnter(this.svgAnimationElements)
 	}
 
 	initializeAnimationElements = ({sun, planets}) => {
-		TweenLite.set(sun, {scale: 0, transformOrigin:"center center"})
-
-		const solarCenter = this.elementsCenterCoordinates(sun)
-		planets.map((planet) => {
-			const planetAnimationData = this.elementsAnimationSteps.planets[planet.dataset.id]
-			const planetCoordinates = { x: Math.round(planet.getBoundingClientRect().left), y: planet.getBoundingClientRect().top }
-			// TESTING:
-			// const planetCoordinatesTest = compose(this.extractRectFromDOMElement, rect => ({x: rect.left, y: rect.right}), this.roundCoordinates)(planet);
-			const planetCoordinatesTest = this.elementsTopLeftCoordinates(planet)
-			// console.log(planetCoordinatesTest);
-			TweenLite.set(planet, {
-				/* TODO: Ask David if he can change the transformOrigin property in InkScape */
-				transformOrigin:`-${planetCoordinates.x - solarCenter.x}px -${planetCoordinates.y - solarCenter.y}px`,
-				rotation: planetAnimationData.rotate.initial
-			})
-		})
+		// TweenLite.set(sun, {
+		// 	transformOrigin:"center center"
+		// })
+		// const solarCenter = this.elementsCenterCoordinates(sun)
+		// planets.map((planet) => {
+		// 	const planetAnimationData = this.elementsAnimationSteps.planets[planet.dataset.id]
+		// 	const planetCoordinates = this.elementsTopLeftCoordinates(planet)
+		// 	TweenLite.set(planet, {
+		// 		transformOrigin:`-${planetCoordinates.x - solarCenter.x}px -${planetCoordinates.y - solarCenter.y}px`
+		// 	})
+		// })
 	}
 
 	animateEnter = ({sun, planets}) => {
-		/* NOTE: Sections fadeouts and fadeins are asynchronous. Stagger enter animation if need be */
-		planets.map((planet) => {
+		/* NOTE: Sections fade-outs and fade-ins are asynchronous. Stagger enter animation if need be */
+		const solarCenter = this.elementsCenterCoordinates(sun)
+		const animation = new TimelineLite();
+		animation.add(`start`, `+=${this.props.transitionTimeout}`);
+		planets.map((planet, index) => {
 			const planetAnimationData = this.elementsAnimationSteps.planets[planet.dataset.id]
-			TweenLite.to(planet, 1, {
-				rotation: planetAnimationData.rotate.in
-			})
+			const planetCoordinates = this.elementsTopLeftCoordinates(planet)
+			TweenLite.set(planet, { transformOrigin:`-${planetCoordinates.x - solarCenter.x}px -${planetCoordinates.y - solarCenter.y}px` })
+			animation.from(planet, 1, {
+						rotation: planetAnimationData.rotate.initial,
+						opacity: 0
+					}, `start+=${index/5}`
+				)
 		})
-		TweenLite.to(sun, 1, {scale: 1, transformOrigin:"center center"})
-
-		/* Example of sun animation */
-		// const animationTimeline = new TimelineLite()
-		// animationTimeline.set(sun, {scale: 0, transformOrigin:"center center"})
-		// animationTimeline.to(sun, 2, {scale: 1, transformOrigin:"center center"})
+		animation.from(sun, 1, {
+				transformOrigin:"center center",
+				opacity: 0,
+				scale: 0
+			}, `start`
+		)
 	};
 
 	animateExit = ({sun, planets}) => {
-		planets.map((planet) => {
-			const planetAnimationData = this.elementsAnimationSteps.planets[planet.dataset.id]
-			TweenLite.to(planet, 1, {
-				rotation: planetAnimationData.rotate.end
-			})
+		const animation = new TimelineLite();
+		animation.add("start");
+		const sunTween = TweenLite.to(sun, 1, {
+			scale: 0.5,
+			transformOrigin:"center center",
+			opacity: 0
 		})
-		TweenLite.to(sun, 0.7, {scale: 0, transformOrigin:"center center"})
-	};
+		animation.add(sunTween, "start+=0.3")
+		planets.map((planet, index) => {
+			const planetAnimationData = this.elementsAnimationSteps.planets[planet.dataset.id]
+			animation.to(planet, 1, {
+						rotation: planetAnimationData.rotate.end,
+						opacity: 0
+					}, `start+=${index/5}`
+				)
+		})
+	}
 
 	render() {
 		return (
 			<div id={"above-the-fold"} className={`section`} ref={this.solarSystemSvgRef}>
 				<SolarSystem id={"solar-system"}/>
 			</div>
-		);
+		)
 	}
 }
