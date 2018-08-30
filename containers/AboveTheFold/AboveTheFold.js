@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import PropTypes from 'prop-types';
-import { TimelineLite, TweenLite } from 'gsap';
-import _ from 'lodash';
+import React, { Component } from "react"
+import PropTypes from 'prop-types'
+import { TimelineLite, TweenLite } from 'gsap'
+import _ from 'lodash'
 import { compose } from "../../services/functional"
-import SolarSystem from "./svg/solar-system.svg";
+import SolarSystem from "./svg/solar-system.svg"
 
 export default class AboveTheFold extends Component {
 
@@ -80,8 +80,8 @@ export default class AboveTheFold extends Component {
 	animateEnter = ({sun, planets}) => {
 		/* NOTE: Sections fade-outs and fade-ins are asynchronous. Stagger enter animation if need be */
 		const solarCenter = this.elementsCenterCoordinates(sun)
-		const animation = new TimelineLite();
-		animation.add(`start`, `+=${this.props.transitionTimeout}`);
+		const animation = new TimelineLite()
+		animation.add(`start`, `+=${this.props.transitionTimeout}`)
 		planets.map((planet, index) => {
 			const planetAnimationData = this.elementsAnimationSteps.planets[planet.dataset.id]
 			const planetCoordinates = this.elementsTopLeftCoordinates(planet)
@@ -101,8 +101,8 @@ export default class AboveTheFold extends Component {
 	};
 
 	animateExit = ({sun, planets}) => {
-		const animation = new TimelineLite();
-		animation.add("start");
+		const animation = new TimelineLite()
+		animation.add("start")
 		const sunTween = TweenLite.to(sun, 1, {
 			scale: 0.5,
 			transformOrigin:"center center",

@@ -1,14 +1,14 @@
-import React, {Component} from "react";
-import {Redirect} from 'react-router';
+import React, {Component} from "react"
+import {Redirect} from 'react-router'
 import {BrowserRouter, Route, Switch, Link} from 'react-router-dom'
-import {TransitionGroup, Transition} from 'react-transition-group';
+import {TransitionGroup, Transition} from 'react-transition-group'
 
-import history from 'services/history';
+import history from 'services/history'
 
-import AboveTheFold from "./AboveTheFold/AboveTheFold";
-import AboutUs from "./AboutUs/AboutUs";
-import Work from "./Work/Work";
-import PropTypes from "prop-types";
+import AboveTheFold from "./AboveTheFold/AboveTheFold"
+import AboutUs from "./AboutUs/AboutUs"
+import Work from "./Work/Work"
+import PropTypes from "prop-types"
 
 export default class Desktop extends Component {
 
@@ -16,17 +16,15 @@ export default class Desktop extends Component {
     super();
     this.state = {
       path: "/",
-      show: false,
-      entered: false
     };
   }
 
   componentDidMount() {
-    // window.addEventListener("wheel", this.updateOnScroll);
+    // window.addEventListener("wheel", this.updateOnScroll)
   }
 
   componentWillUnmount() {
-    // window.removeEventListener("wheel", this.updateOnScroll);
+    // window.removeEventListener("wheel", this.updateOnScroll)
   }
 
   // TODO: Define routes/scenes the proper way
@@ -36,7 +34,6 @@ export default class Desktop extends Component {
     {path: "/Work", component: Work}
   ]
 
-
   /* Scroll event handler [DISABLED - see componentDidMount and WillMount]
   /* NOTE: Desktop scroll behaviour is implemented so that we
   /* redirect react route (ie. section of the site) and animate
@@ -44,16 +41,15 @@ export default class Desktop extends Component {
   updateOnScroll = (event) => {
     if (Math.abs(event.deltaY) > 30) {
       // Remove listener to lock the transition so the animation can load
-      window.removeEventListener("wheel", this.updateOnScroll);
+      window.removeEventListener("wheel", this.updateOnScroll)
       // Check and set users scroll direction
-      const direction = (event.deltaY) / Math.abs(event.deltaY);
-
+      const direction = (event.deltaY) / Math.abs(event.deltaY)
       // Iterate over link array
       this.links().forEach((link, i, arr) => {
         // Check for current location in links array and check if previous/next path relative to current exists
         if (link.path === this.state.path && typeof arr[i + direction] !== 'undefined') {
           // Set previous/next path in state ...
-          this.setState({path: arr[i + direction].path});
+          this.setState({path: arr[i + direction].path})
           // ... and redirect/transition user
           history.replace(arr[i + direction].path)
         }
@@ -91,21 +87,21 @@ export default class Desktop extends Component {
                   <Switch location={props.location}>
                     <Route exact path="/" render={(props) => (
                       <AboveTheFold
-                        {...props}
+                        { ... props}
                         transitionState={state}
                         transitionTimeout={1.2}
                       />
                     )}/>
                     <Route exact path="/about-us" render={(props) => (
                       <AboutUs
-                        {...props}
+                        { ... props}
                         transitionState={state}
                         transitionTimeout={1.2}
                       />
                     )}/>
-                    <Route exact path="/work" render={(props) => (
+                    <Route exact  path="/work" render={(props) => (
                       <Work
-                        {...props}
+                        { ... props}
                         transitionState={state}
                         transitionTimeout={0.2}
                       />

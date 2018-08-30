@@ -16,15 +16,15 @@ export default class Main extends Component {
 	}
 
 	componentDidMount() {
-		window.addEventListener('resize', this.updateOnResize);
+		window.addEventListener('resize', this.updateOnResize)
 	}
 
 	componentWillUnmount() {
-		window.removeEventListener('resize', this.updateOnResize);
+		window.removeEventListener('resize', this.updateOnResize)
 	}
 
 	updateOnResize = () => {
-		this.setState({ width: window.innerWidth });
+		this.setState({ width: window.innerWidth })
 	}
 
 	render() {
